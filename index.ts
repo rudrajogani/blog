@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
@@ -9,7 +10,8 @@ import { checkForAuthenticationCookie } from './middlewares/authentication';
 const app = express();
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/blog')
-  .then(() => console.log('MongoDB connected!'));
+  .then(() => console.log('MongoDB connected!'))
+  .catch((err) => console.error('MongoDB connection failed:', err.message));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
